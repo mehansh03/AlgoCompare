@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Classification Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .card {
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .jumbotron {
+            background-color: #e9ecef;
+            padding: 2rem;
+            border-radius: 0.3rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">ML Classification Dashboard</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div style="margin-top: 60px;">
+            <div class="jumbotron">
+                <h1 class="display-4">Twitter AstraZeneca Classification Analysis</h1>
+                <p class="lead">This application compares the performance of various classification algorithms on Twitter data.</p>
+                <hr class="my-4">
+                <p>Upload your dataset to begin the analysis.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Upload Dataset</h5>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="/upload" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Select CSV file:</label>
+                            <input class="form-control" type="file" id="formFile" name="file" accept=".csv" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Upload and Continue</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0">Supported Algorithms</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">Logistic Regression</li>
+                        <li class="list-group-item">Naive Bayes</li>
+                        <li class="list-group-item">K-Nearest Neighbors (KNN)</li>
+                        <li class="list-group-item">Decision Tree</li>
+                        <li class="list-group-item">Random Forest</li>
+                        <li class="list-group-item">K-means Clustering</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

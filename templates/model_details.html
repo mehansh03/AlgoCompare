@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ model_name }} Details - ML Classification Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .card {
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .metric-card {
+            transition: transform 0.3s;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">ML Classification Dashboard</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div style="margin-top: 60px;">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">{{ model_name }} Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="alert alert-info">
+                                <h4>Model Description</h4>
+                                {% if model_name == 'Logistic Regression' %}
+                                <p>Logistic Regression is a statistical method for analyzing a dataset in which there are one or more independent variables that determine an outcome. It is used for classification problems and predicts the probability of occurrence of an event.</p>
+                                {% elif model_name == 'Naive Bayes' %}
+                                <p>Naive Bayes is a family of probabilistic classifiers based on applying Bayes' theorem with strong independence assumptions between the features. It's particularly suited for text classification problems.</p>
+                                {% elif model_name == 'KNN' %}
+                                <p>K-Nearest Neighbors is a non-parametric method used for classification and regression. It works by finding the k nearest training examples in the feature space and uses majority vote for classification.</p>
+                                {% elif model_name == 'Decision Tree' %}
+                                <p>Decision Tree is a flowchart-like tree structure where each internal node denotes a test on an attribute, each branch represents an outcome of the test, and each leaf node holds a class label.</p>
+                                {% elif model_name == 'Random Forest' %}
+                                <p>Random Forest is an ensemble learning method that operates by constructing multiple decision trees during training and outputting the class that is the mode of the classes of the individual trees.</p>
+                                {% elif model_name == 'K-means' %}
+                                <p>K-means clustering is an unsupervised learning algorithm that partitions n observations into k clusters where each observation belongs to the cluster with the nearest mean.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        {% for metric_name, value in metrics.items() %}
+                        <div class="col-md-3 mb-4">
+                            <div class="card metric-card h-100 
+                              {% if metric_name == 'Accuracy' %} bg-primary text-white
+                              {% elif metric_name == 'Precision' %} bg-success text-white
+                              {% elif metric_name == 'Recall' %} bg-info text-white
+                              {% elif metric_name == 'F1-Score' %} bg-warning
+                              {% endif %}">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">{{ metric_name }}</h5>
+                                    <h3 class="display-4">{{ "%.3f"|format(value) }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Interpretation</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <strong>Accuracy:</strong> {{ "%.1f"|format(metrics.Accuracy * 100) }}% of predictions are correct.
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Precision:</strong> When the model predicts a positive result, it is correct {{ "%.1f"|format(metrics.Precision * 100) }}% of the time.
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Recall:</strong> The model correctly identifies {{ "%.1f"|format(metrics.Recall * 100) }}% of all actual positive cases.
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>F1-Score:</strong> The harmonic mean of precision and recall is {{ "%.1f"|format(metrics['F1-Score'] * 100) }}%.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <a href="javascript:history.back()" class="btn btn-secondary">Back to Results</a>
+                <a href="/" class="btn btn-primary">Start New Analysis</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

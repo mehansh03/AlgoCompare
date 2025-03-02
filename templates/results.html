@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - ML Classification Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .card {
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .table {
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">ML Classification Dashboard</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <div style="margin-top: 60px;">
+            <div class="alert alert-success">
+                <h4 class="alert-heading">Analysis Completed!</h4>
+                <p>The classification analysis has been successfully completed. View the results below.</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Classification Performance Results</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        {{ results|safe }}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0">Performance Visualization</h5>
+                </div>
+                <div class="card-body text-center">
+                    <img src="data:image/png;base64,{{ plot_url }}" class="img-fluid" alt="Performance Comparison Chart">
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0">Model Details</h5>
+                </div>
+                <div class="card-body">
+                    <p>Click on a model to view detailed performance metrics:</p>
+                    <div class="list-group">
+                        {% for model in model_names %}
+                        <a href="{{ url_for('model_details', model_name=model) }}" class="list-group-item list-group-item-action">
+                            {{ model }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <a href="/" class="btn btn-primary">Start New Analysis</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
